@@ -37,32 +37,37 @@ public class Session2Servlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // retrieve all grades from session
         HttpSession session = request.getSession();
         List<Integer> allGrades = (List<Integer>) session.getAttribute("allGrades");
-        if(allGrades == null) {
+        if(allGrades == null) { // ... or create new list
             allGrades = new ArrayList<>();
         }
 
+        // handle data send by user
         String gradeStr = request.getParameter("grade");
         try {
-            int grade = Integer.valueOf(gradeStr);
-            allGrades.add(grade);
+            int grade = Integer.valueOf(gradeStr); // convert
+            allGrades.add(grade); // add to all grades
             session.setAttribute("allGrades", allGrades);
         } catch (NumberFormatException e) {
-
+            System.out.println("log error on server: invalid data from client");
         }
 
+        // try calculate avg
         int sum = 0;
         for (int grade : allGrades) {
             sum += grade;
         }
 
+        // fill template to display form and calculated data to client
         String html = FORM_HTML_TEMPLATE.replace("$ALL_GRADES", allGrades.toString());
         if(sum == 0) {
             html = html.replace("$AVG_VALUE", "undefined");
         } else {
             html = html.replace("$AVG_VALUE", String.valueOf((double)sum / allGrades.size()));
         }
+        // send response to client
         response.getWriter().println(html);
     }
 }
