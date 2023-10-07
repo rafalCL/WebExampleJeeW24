@@ -1,0 +1,8 @@
+###
+GET localhost:8080/index.html
+
+###
+GET localhost:8080/hello
+
+###
+POST localhost:8080/handlePost
