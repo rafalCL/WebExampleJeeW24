@@ -6,3 +6,15 @@ GET localhost:8080/hello
 
 ###
 POST localhost:8080/handlePost
+
+###
+POST localhost:8080/handlePost
+Content-Type: application/x-www-form-urlencoded
+
+firstName=ala
+
+###
+POST localhost:8080/handlePost
+Content-Type: application/x-www-form-urlencoded
+
+firstName=ala&lastName=alowska
