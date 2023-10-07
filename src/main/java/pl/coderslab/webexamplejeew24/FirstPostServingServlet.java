@@ -11,6 +11,21 @@ import java.io.IOException;
 public class FirstPostServingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("hello from post");
+        String firstName = req.getParameter("firstName");
+        String lastName = req.getParameter("lastName");
+        resp.getWriter().println("hello from post. good to see you, " + firstName + " " + lastName + "! :)");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        resp.getWriter().println("" +
+                "<html lang=\"en\">\n" +
+                "<body>\n" +
+                "    <form method=\"post\">\n" +
+                "        <input type=\"text\" name=\"firstName\">\n" +
+                "        <input type=\"submit\">\n" +
+                "    </form>\n" +
+                "</body>\n" +
+                "</html>");
     }
 }
